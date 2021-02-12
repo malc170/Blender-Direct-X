@@ -41,106 +41,26 @@ class EXPORT_OT_directx(bpy.types.Operator):
 
     filepath: StringProperty(subtype='FILE_PATH')
 
-    # DBUG VERSION START
-    SelectedOnly: BoolProperty(                 name="Export Selected Objects Only", 
-                                                description="Export only selected objects", 
-                                                default=True) 
-                                                
-    CoordinateSystem: EnumProperty(             name="Coordinate System", 
-                                                description="Use the selected coordinate system for export", 
-                                                items=(('LEFT_HANDED', "Left-Handed", "Use a Y up, Z forward system or a Z up, -Y forward system"), ('RIGHT_HANDED', "Right-Handed", "Use a Y up, -Z forward system or a Z up, Y forward system")), 
-                                                default='LEFT_HANDED')
-
-    UpAxis: EnumProperty(                       name="Up Axis", 
-                                                description="The selected axis points upward", 
-                                                items=(('Y', "Y", "The Y axis points up"), ('Z', "Z", "The Z axis points up")), 
-                                                default='Y')
-
-    ExportMeshes: BoolProperty(                 name="Export Meshes", 
-                                                description="Export mesh objects", 
-                                                default=True) 
-
-    ExportNormals: BoolProperty(                name="Export Normals", 
-                                                description="Export mesh normals", 
-                                                default=True) 
-
-    FlipNormals: BoolProperty(                  name="Flip Normals", 
-                                                description="Flip mesh normals before export", 
-                                                default=True)
-
-    ExportUVCoordinates: BoolProperty(          name="Export UV Coordinates", 
-                                                description="Export mesh UV coordinates, if any", 
-                                                default=True)
-
-    ExportMaterials: BoolProperty(              name="Export Materials", 
-                                                description="Export material properties and reference image textures", 
-                                                default=True)
-
-    ExportActiveImageMaterials: BoolProperty(   name="Reference Active Images as Textures", 
-                                                description="Reference the active image of each face as a texture, as opposed to the image assigned to the material", 
-                                                default=True)
-
-    ExportVertexColors: BoolProperty(           name="Export Vertex Colors", 
-                                                description="Export mesh vertex colors, if any", 
-                                                default=True) 
-
-    ExportSkinWeights: BoolProperty(            name="Export Skin Weights", 
-                                                description="Bind mesh vertices to armature bones", 
-                                                default=True)
-
-    ApplyModifiers: BoolProperty(               name="Apply Modifiers", 
-                                                description="Apply the effects of object modifiers before export", 
-                                                default=True)
-
-    ExportArmatureBones: BoolProperty(          name="Export Armature Bones", 
-                                                description="Export armatures bones", 
-                                                default=True)
-
-    ExportRestBone: BoolProperty(               name="Export Rest Position", 
-                                                description="Export bones in their rest position (recommended for animation)", 
-                                                default=True)
-
-    ExportAnimation: BoolProperty(              name="Export Animations", 
-                                                description="Export object and bone animations.  Data is exported for every frame", 
-                                                default=True)
-
-    IncludeFrameRate: BoolProperty(             name="Include Frame Rate", 
-                                                description="Include the AnimTicksPerSecond template which is used by some engines to control animation speed", 
-                                                default=True)
-
-    ExportActionsAsSets: BoolProperty(          name="Export Actions as AnimationSets", 
-                                                description="Export each action of each object as a separate AnimationSet. Otherwise all current actions are lumped together into a single set", 
-                                                default=True)
-
-    AttachToFirstArmature: BoolProperty(        name="Attach Unused Actions to First Armature", 
-                                                description="Export each unused action as if used by the first armature object", 
-                                                default=True)
-
-    Verbose: BoolProperty(                      name="Verbose", 
-                                                description="Run the exporter in debug mode. Check the console for output", 
-                                                default=True)
-    # DBUG VERSION END
-
     # Export options
-    #SelectedOnly: BoolProperty(name="Export Selected Objects Only", description="Export only selected objects", default=True) 
-    #CoordinateSystem: EnumProperty(name="Coordinate System", description="Use the selected coordinate system for export", items=(('LEFT_HANDED', "Left-Handed", "Use a Y up, Z forward system or a Z up, -Y forward system"), ('RIGHT_HANDED', "Right-Handed", "Use a Y up, -Z forward system or a Z up, Y forward system")), default='LEFT_HANDED')
-    #UpAxis: EnumProperty(name="Up Axis", description="The selected axis points upward", items=(('Y', "Y", "The Y axis points up"), ('Z', "Z", "The Z axis points up")), default='Y')
-    #ExportMeshes: BoolProperty(name="Export Meshes", description="Export mesh objects", default=True) 
-    #ExportNormals: BoolProperty(name="    Export Normals", description="Export mesh normals", default=True) 
-    #FlipNormals: BoolProperty(name="        Flip Normals", description="Flip mesh normals before export", default=False)
-    #ExportUVCoordinates: BoolProperty(name="    Export UV Coordinates", description="Export mesh UV coordinates, if any", default=True)
-    #ExportMaterials: BoolProperty(name="    Export Materials", description="Export material properties and reference image textures", default=True)
-    #ExportActiveImageMaterials: BoolProperty(name="        Reference Active Images as Textures", description="Reference the active image of each face as a texture, as opposed to the image assigned to the material", default=False)
-    #ExportVertexColors: BoolProperty(name="    Export Vertex Colors", description="Export mesh vertex colors, if any", default=False) 
-    #ExportSkinWeights: BoolProperty(name="    Export Skin Weights", description="Bind mesh vertices to armature bones", default=False)
-    #ApplyModifiers: BoolProperty(name="    Apply Modifiers", description="Apply the effects of object modifiers before export", default=False)
-    #ExportArmatureBones: BoolProperty(name="Export Armature Bones", description="Export armatures bones", default=False)
-    #ExportRestBone: BoolProperty(name="    Export Rest Position", description="Export bones in their rest position (recommended for animation)", default=False)
-    #ExportAnimation: BoolProperty(name="Export Animations", description="Export object and bone animations.  Data is exported for every frame", default=False)
-    #IncludeFrameRate: BoolProperty(name="    Include Frame Rate", description="Include the AnimTicksPerSecond template which is used by some engines to control animation speed", default=False)
-    #ExportActionsAsSets: BoolProperty(name="    Export Actions as AnimationSets", description="Export each action of each object as a separate AnimationSet. Otherwise all current actions are lumped together into a single set", default=False)
-    #AttachToFirstArmature: BoolProperty(name="        Attach Unused Actions to First Armature", description="Export each unused action as if used by the first armature object", default=False)
-    #Verbose: BoolProperty(name="Verbose", description="Run the exporter in debug mode. Check the console for output", default=False)
+    SelectedOnly: BoolProperty(name="Export Selected Objects Only", description="Export only selected objects", default=True) 
+    CoordinateSystem: EnumProperty(name="Coordinate System", description="Use the selected coordinate system for export", items=(('LEFT_HANDED', "Left-Handed", "Use a Y up, Z forward system or a Z up, -Y forward system"), ('RIGHT_HANDED', "Right-Handed", "Use a Y up, -Z forward system or a Z up, Y forward system")), default='LEFT_HANDED')
+    UpAxis: EnumProperty(name="Up Axis", description="The selected axis points upward", items=(('Y', "Y", "The Y axis points up"), ('Z', "Z", "The Z axis points up")), default='Y')
+    ExportMeshes: BoolProperty(name="Export Meshes", description="Export mesh objects", default=True) 
+    ExportNormals: BoolProperty(name="Export Normals", description="Export mesh normals", default=True) 
+    FlipNormals: BoolProperty(name="Flip Normals", description="Flip mesh normals before export", default=False)
+    ExportUVCoordinates: BoolProperty(name="Export UV Coordinates", description="Export mesh UV coordinates, if any", default=True)
+    ExportMaterials: BoolProperty(name="Export Materials", description="Export material properties and reference image textures", default=True)
+    ExportActiveImageMaterials: BoolProperty(name="Reference Active Images as Textures", description="Reference the active image of each face as a texture, as opposed to the image assigned to the material", default=False)
+    ExportVertexColors: BoolProperty(name="Export Vertex Colors", description="Export mesh vertex colors, if any", default=False) 
+    ExportSkinWeights: BoolProperty(name="Export Skin Weights", description="Bind mesh vertices to armature bones", default=False)
+    ApplyModifiers: BoolProperty(name="Apply Modifiers", description="Apply the effects of object modifiers before export", default=False)
+    ExportArmatureBones: BoolProperty(name="Export Armature Bones", description="Export armatures bones", default=False)
+    ExportRestBone: BoolProperty(name="Export Rest Position", description="Export bones in their rest position (recommended for animation)", default=False)
+    ExportAnimation: BoolProperty(name="Export Animations", description="Export object and bone animations.  Data is exported for every frame", default=False)
+    IncludeFrameRate: BoolProperty(name="Include Frame Rate", description="Include the AnimTicksPerSecond template which is used by some engines to control animation speed", default=False)
+    ExportActionsAsSets: BoolProperty(name="Export Actions as AnimationSets", description="Export each action of each object as a separate AnimationSet. Otherwise all current actions are lumped together into a single set", default=False)
+    AttachToFirstArmature: BoolProperty(name="Attach Unused Actions to First Armature", description="Export each unused action as if used by the first armature object", default=False)
+    Verbose: BoolProperty(name="Verbose", description="Run the exporter in debug mode. Check the console for output", default=False)
 
     def execute(self, context):
         self.filepath = bpy.path.ensure_ext(self.filepath, ".x")
